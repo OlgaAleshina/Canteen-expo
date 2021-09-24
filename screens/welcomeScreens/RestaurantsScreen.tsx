@@ -18,7 +18,6 @@ const mapStateToProps = (state: {company: any}) => {
 function TabTwoScreen({navigation}: RootTabScreenProps<'TabTwo'>) {
 
   const goToRestaurant = (podDomen: string) => {
-    console.log("pod", podDomen)
     navigation.navigate("CategoriesList", {podDomen: podDomen})
   }
 

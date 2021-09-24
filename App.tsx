@@ -28,8 +28,6 @@ const createPersistor = (store) => {
 export default function App() {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
-
-  console.log("store", store)
   
   
 

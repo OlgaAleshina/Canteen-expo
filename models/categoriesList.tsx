@@ -2,64 +2,58 @@ import { actionCreatorFactory, DvaModelBuilder } from "dva-model-creator";
 import * as categoryService from '../services/categoriesList';
 import { Effect } from "dva";
 import { APIprops, ICompState } from "../types";
+import { get } from "styled-system";
 
 
 
 const initState: ICompState = {
-    compID: null,
     compInfo: null,
+    categories: [],
   };
 
 const moduleName = "company"
 const actionCreator = actionCreatorFactory(moduleName);
 
-export const setCompId = actionCreator<ICompState["compID"]>("setCompId")
 export const setCompInfo = actionCreator<ICompState["compInfo"]>("setCompInfo")
 export const getCompInfo = actionCreator<APIprops>("getCompInfo")
+export const setCategories = actionCreator<ICompState["categories"]>("setCategories")
+export const getCategories = actionCreator<APIprops>("getCategories")
 //export const authError = actionCreator<string>("authError");
 //export const login = actionCreator<FormProps>("login");
 //export const signup = actionCreator<FormProps>("signup");
 
 
 const builder = new DvaModelBuilder<ICompState>(initState, moduleName)
-  .case(setCompId, (state, payload) => {
-      return { ...state, compId: payload}
-  })
   .case(setCompInfo, (state, payload) => {
     return { ...state, compInfo: payload}
+  })
+  .case(setCategories, (state, payload)=> {
+    return {...state, categories: payload}
   })
   .takeEvery(getCompInfo, function *(payload, {call, put}): Generator {
       try{
           const res = yield call(categoryService.getInfoCompany, payload);
-          yield put(setCompInfo(res.data.info))
+          const compID = res?.data?.info?.id
+          yield put(setCompInfo(res?.data?.info))
+          yield put(getCategories(compID))
       } catch (error) {
-          alert(error)
+          alert(error.message)
       }
   })
-  /*.takeEvery(getCompId, function *(payload, { call, put }) {
-      try {
-          yield call(authService.login, payload);
-          yield put({
-            type: 'log',
-            payload: true
-        })
-          yield setCookies({name:'isLogged', value: true, isExpire: payload.remember })
-          yield router.push("/dashboard")
-
-      } catch(error) {
-          yield put({
-            type: 'authError',
-            payload: error.message
-          })
-      }
-  })*/
-
+ .takeEvery(getCategories, function *(payload, {call, put}): Generator {
+    try {
+      const res = yield call(categoryService.getCategories, payload);
+      yield put(setCategories(res?.data?.categories))
+    } catch (error) {
+      alert(error.message)
+    }
+ })  
 
   
   
 
 export default builder.build();
 
-export const actions = {
+/*export const actions = {
   setCompId 
-};
+};*/

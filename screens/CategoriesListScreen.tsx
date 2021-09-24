@@ -21,13 +21,14 @@ type PageStateProps = ReturnType<typeof mapStateToProps>;
 type PageProps = PageStateProps & IGlobalProps & ScreenProps;
 
 const CategoriesListScreen: React.FC<PageProps> = ({route, navigation, dispatch}) => {
-console.log("params:", route.params)
+
   useEffect(()=>{
     dispatch({
       type: 'company/getCompInfo',
       payload: route.params,
     })
   }
+  
   , [])
 
   const goToCategory= () => {

@@ -23,3 +23,9 @@ export const getBanner =  ({compID}: APIprops) => {
   const res = instance.get(`${compID}/banner`);
   return res;
 };
+
+export const getCategories = (compID: APIprops) => {
+  console.log("id", compID)
+  const res = instance.get(`${compID}/category`);
+  return res;
+};

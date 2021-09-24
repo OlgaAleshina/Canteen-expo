@@ -45,6 +45,11 @@ export type RootTabScreenProps<Screen extends keyof RootTabParamList> = Composit
   NativeStackScreenProps<RootStackParamList>
 >;
 
+export interface IGlobalProps {
+  history: History;
+  dispatch: Dispatch<any>;
+}
+
 export type ScreenProps = NativeStackScreenProps<RootStackParamList>
 
 export type APIprops = {
@@ -54,10 +59,6 @@ export type APIprops = {
   paginationPage?: number,
 }
 export interface ICompState {
-  compID: null | string,
-  compInfo: null | {}
+  compInfo: null | {},
+  categories: [],
 }
-export interface IGlobalProps {
-    history: History;
-    dispatch: Dispatch<any>;
-  }
