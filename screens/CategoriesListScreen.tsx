@@ -1,15 +1,39 @@
 import { StatusBar } from 'expo-status-bar';
 import * as React from 'react';
+import {useEffect, useState} from "react";
 import { Platform, StyleSheet, Button } from 'react-native';
+import { connect } from 'react-redux';
 
-import { RootTabScreenProps } from '../types';
+import {ScreenProps, ICompState, IGlobalProps } from '../types';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Text, View } from '../components/Themed';
 
-export default function CategoriesListScreen({navigation}: RootTabScreenProps) {
+
+const mapStateToProps = (state: {company: ICompState}) => {
+  const {compInfo} = state.company
+  return {
+    //loading: state.loading.models.users,
+    compInfo
+  };
+}
+
+type PageStateProps = ReturnType<typeof mapStateToProps>;
+type PageProps = PageStateProps & IGlobalProps & ScreenProps;
+
+const CategoriesListScreen: React.FC<PageProps> = ({route, navigation, dispatch}) => {
+console.log("params:", route.params)
+  useEffect(()=>{
+    dispatch({
+      type: 'company/getCompInfo',
+      payload: route.params,
+    })
+  }
+  , [])
 
   const goToCategory= () => {
     navigation.navigate("Category")
   }
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Categories List</Text>
@@ -32,3 +56,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
+
+export default connect(mapStateToProps
+)(CategoriesListScreen);

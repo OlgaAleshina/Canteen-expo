@@ -6,6 +6,8 @@
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { Dispatch } from "redux";
+import { History } from "history";
 
 declare global {
   namespace ReactNavigation {
@@ -18,7 +20,7 @@ export type RootStackParamList = {
   Modal: undefined;
   NotFound: undefined;
   Cart: undefined;
-  CategoriesList: undefined;
+  CategoriesList: {} | undefined;
   Category: undefined;
 };
 
@@ -33,7 +35,29 @@ export type RootTabParamList = {
 
 };
 
+export type AppTabParamList = {
+  CategoriesList: undefined | string,
+  Category: undefined
+}
+
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> = CompositeScreenProps<
   BottomTabScreenProps<RootTabParamList, Screen>,
   NativeStackScreenProps<RootStackParamList>
 >;
+
+export type ScreenProps = NativeStackScreenProps<RootStackParamList>
+
+export type APIprops = {
+  compID?: string,
+  podDomen?: string,
+  activeCategoryId?: number,
+  paginationPage?: number,
+}
+export interface ICompState {
+  compID: null | string,
+  compInfo: null | {}
+}
+export interface IGlobalProps {
+    history: History;
+    dispatch: Dispatch<any>;
+  }
