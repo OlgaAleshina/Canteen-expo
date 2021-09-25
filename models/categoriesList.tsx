@@ -2,13 +2,12 @@ import { actionCreatorFactory, DvaModelBuilder } from "dva-model-creator";
 import * as categoryService from '../services/categoriesList';
 import { Effect } from "dva";
 import { APIprops, ICompState } from "../types";
-import { get } from "styled-system";
-
 
 
 const initState: ICompState = {
     compInfo: null,
     categories: [],
+    dishes: [],
   };
 
 const moduleName = "company"
@@ -18,9 +17,8 @@ export const setCompInfo = actionCreator<ICompState["compInfo"]>("setCompInfo")
 export const getCompInfo = actionCreator<APIprops>("getCompInfo")
 export const setCategories = actionCreator<ICompState["categories"]>("setCategories")
 export const getCategories = actionCreator<APIprops>("getCategories")
-//export const authError = actionCreator<string>("authError");
-//export const login = actionCreator<FormProps>("login");
-//export const signup = actionCreator<FormProps>("signup");
+export const setDishes = actionCreator<ICompState["dishes"]>("setDishes")
+export const getDishes = actionCreator<APIprops>("getDishes")
 
 
 const builder = new DvaModelBuilder<ICompState>(initState, moduleName)
@@ -29,6 +27,9 @@ const builder = new DvaModelBuilder<ICompState>(initState, moduleName)
   })
   .case(setCategories, (state, payload)=> {
     return {...state, categories: payload}
+  })
+  .case(setDishes, (state, payload)=> {
+    return {...state, dishes: payload}
   })
   .takeEvery(getCompInfo, function *(payload, {call, put}): Generator {
       try{
@@ -47,7 +48,15 @@ const builder = new DvaModelBuilder<ICompState>(initState, moduleName)
     } catch (error) {
       alert(error.message)
     }
- })  
+ }) 
+ .takeEvery(getDishes, function *(payload, {call, put}): Generator {
+    try {
+      const res = yield call(categoryService.getDishes, payload)
+      yield put(setDishes(res.data))
+    } catch (error) {
+      alert(error.message)
+    }
+ }) 
 
   
   

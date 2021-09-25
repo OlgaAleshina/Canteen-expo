@@ -24,8 +24,14 @@ export const getBanner =  ({compID}: APIprops) => {
   return res;
 };
 
-export const getCategories = (compID: APIprops) => {
+export const getCategories = ( compID: APIprops) => {
   console.log("id", compID)
   const res = instance.get(`${compID}/category`);
+  return res;
+};
+
+export const getDishes = ({compID, activeCategoryId, paginationPage}: APIprops) => {
+  const res = instance.get(`${compID}/category/${activeCategoryId}/dish?page=${paginationPage}`
+  );
   return res;
 };

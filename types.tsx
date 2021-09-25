@@ -61,4 +61,5 @@ export type APIprops = {
 export interface ICompState {
   compInfo: null | {},
   categories: [],
+  dishes: []
 }
