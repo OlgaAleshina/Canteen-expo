@@ -21,7 +21,7 @@ export type RootStackParamList = {
   NotFound: undefined;
   Cart: undefined;
   CategoriesList: {} | undefined;
-  Category: undefined;
+  Category: {} | undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<
@@ -36,7 +36,7 @@ export type RootTabParamList = {
 };
 
 export type AppTabParamList = {
-  CategoriesList: undefined | string,
+  CategoriesList: undefined | string;
   Category: undefined
 }
 
@@ -60,6 +60,19 @@ export type APIprops = {
 }
 export interface ICompState {
   compInfo: null | {},
-  categories: [],
-  dishes: []
+  categories: {
+    id: string,
+    photo: string,
+    name: string
+  }[],
+  dishes: {
+    nextPage: number,
+    prevPage: number,
+    result: {}[]
+  } | {},
+}
+
+export type CompInfo = {
+  id: string;
+
 }

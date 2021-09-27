@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { persistReducer } from 'redux-persist'
 import { createMemoryHistory } from 'history';
-import company from "../models/categoriesList";
+import company from "../models/company";
 
 const history = createMemoryHistory();
 

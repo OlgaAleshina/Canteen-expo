@@ -30,7 +30,7 @@ export const getCategories = ( compID: APIprops) => {
   return res;
 };
 
-export const getDishes = ({compID, activeCategoryId, paginationPage}: APIprops) => {
+  export const getDishes = ({compID, activeCategoryId, paginationPage=1}: APIprops) => {
   const res = instance.get(`${compID}/category/${activeCategoryId}/dish?page=${paginationPage}`
   );
   return res;

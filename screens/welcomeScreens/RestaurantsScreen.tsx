@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import EditScreenInfo from '../../components/EditScreenInfo';
 import { Text, View } from '../../components/Themed';
+import { Box, Pressable } from "native-base";
 import { FlatList, Button } from "react-native";
 import { RootTabScreenProps } from '../../types';
 
@@ -22,16 +23,27 @@ function TabTwoScreen({navigation}: RootTabScreenProps<'TabTwo'>) {
   }
 
   return (
-    <View style={styles.container}>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/TabTwoScreen.tsx" />
+    <View>
      
       <FlatList
+        
         data={[
-          {key: 'студенец', podDomen: 'restomarket-studenec'},
-          {key: 'хабит', podDomen: 'habit'},
+          {key: 'На цоколе', podDomen: 'restomarket-studenec'},
+          {key: 'Хабит', podDomen: 'habit'},
         ]}
-        renderItem={({item}) => <Button title={item.key} onPress={()=>goToRestaurant(item.podDomen)}>{item.key}</Button>}
+        renderItem={({item}) => (
+          <Box 
+          width="100%"
+            borderBottomWidth="1"
+            _dark={{
+              borderColor: "gray.600",
+            }}
+            borderColor="coolGray.200"
+            pl="4"
+            pr="5"
+            py="2">
+                <Pressable pt="10" pb="10" onPress={()=>goToRestaurant(item.podDomen)}>{item.key}</Pressable>
+          </Box>)}
       />
     </View>
   );

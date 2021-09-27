@@ -32,50 +32,63 @@ const CategoriesListScreen: React.FC<PageProps> = ({route, navigation, dispatch,
   }
   , [])
 
-  const goToCategory= () => {
-    navigation.navigate("Category")
+  const goToCategory= (id: string, name: string) => {
+    navigation.navigate("Category", {id: id, name: name})
   }
 
   
   return (
     <View>
       <Heading textAlign="left" mb="2">Menu</Heading>
-      <View style={{flexDirection:"row", flexWrap: "wrap", maxWidth: 780}}>
-        {props.categories.map(item=>(
-      
-          
-              <Pressable
-                style={{width: "50%", padding: 5}}
-                onPress={()=>goToCategory(item.id)}
-              >
-                  
-                  <Image
-                        source={{uri: `${item.photo}`,}}
-                        style={{width: "100%", height: 100, borderRadius: 60/ 20, padding: 5}} 
-                      />
-                  <View style={{backgroundColor: "rgba(190,188,188,.3)", position: "absolute", bottom: 4}}>
-                      <Text style={{color: "white"}}>{item.name}</Text>
-                 </View>       
+      <View style={styles.container}>
+        
+          {props.categories.map(item=>(
+                <Pressable
+                  style={styles.category}
+                  onPress={()=>goToCategory(item.id, item.name)}
+                  key={item.id}
+                >
+                      <Image
+                            source={{uri: `${item.photo}`,}}
+                            style={styles.categoryImage} 
+                          />
+                      <View style={styles.categoryTitle}>
+                          <Text style={styles.categoryTitleText}>{item.name}</Text>
+                      </View>       
+                </Pressable>
             
-              </Pressable>
-          
-          
-          ))}
-          </View>
+            
+            ))}
+
+        </View>
       </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection:"row", 
+    flexWrap: "wrap", 
+    maxWidth: 780
   },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
+  category: {
+    width: "50%", 
+    padding: 5
   },
+  categoryImage: {
+    width: "100%", 
+    height: 100, 
+    borderRadius: 60/ 20, 
+    padding: 5
+  },
+  categoryTitle: {
+    backgroundColor: "rgba(190,188,188,.3)",
+    position: "absolute", 
+    bottom: 4
+  },
+  categoryTitleText: {
+    color: "white"
+  }
 });
 
 export default connect(mapStateToProps

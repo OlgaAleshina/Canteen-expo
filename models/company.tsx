@@ -1,13 +1,12 @@
 import { actionCreatorFactory, DvaModelBuilder } from "dva-model-creator";
-import * as categoryService from '../services/categoriesList';
-import { Effect } from "dva";
+import * as categoryService from '../services/company';
 import { APIprops, ICompState } from "../types";
 
 
 const initState: ICompState = {
     compInfo: null,
     categories: [],
-    dishes: [],
+    dishes: {},
   };
 
 const moduleName = "company"
