@@ -2,7 +2,6 @@ import * as React from 'react';
 import { StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
-import EditScreenInfo from '../../components/EditScreenInfo';
 import { Text, View } from '../../components/Themed';
 import { Box, Pressable } from "native-base";
 import { FlatList, Button } from "react-native";
@@ -42,7 +41,9 @@ function TabTwoScreen({navigation}: RootTabScreenProps<'TabTwo'>) {
             pl="4"
             pr="5"
             py="2">
-                <Pressable pt="10" pb="10" onPress={()=>goToRestaurant(item.podDomen)}>{item.key}</Pressable>
+                <Pressable pt="10" pb="10" onPress={()=>goToRestaurant(item.podDomen)}>
+                    <Text>{item.key}</Text>
+                </Pressable>
           </Box>)}
       />
     </View>

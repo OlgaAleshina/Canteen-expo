@@ -52,27 +52,46 @@ export interface IGlobalProps {
 
 export type ScreenProps = NativeStackScreenProps<RootStackParamList>
 
+export type AppBarProps = {
+  title: string;
+  cartCount?: null | number;
+}
+
 export type APIprops = {
-  compID?: string,
-  podDomen?: string,
-  activeCategoryId?: number,
-  paginationPage?: number,
+  compID?: string;
+  podDomen?: string;
+  activeCategoryId?: number;
+  paginationPage?: number;
 }
 export interface ICompState {
-  compInfo: null | {},
+  compInfo: {
+      name: string;
+      id: string;
+    } | null;
   categories: {
-    id: string,
-    photo: string,
-    name: string
-  }[],
+      id: string;
+      photo: string;
+      name: string
+    }[],
   dishes: {
-    nextPage: number,
-    prevPage: number,
-    result: {}[]
-  } | {},
+      nextPage: number;
+      prevPage: number;
+      results: object[]
+    } | {},
 }
 
 export type CompInfo = {
   id: string;
+  name: string;
+}
 
+export type Dish = {
+  dish: {
+    name: string;
+    price: number;
+    weight: number;
+    type_measure: string;
+    photo?: string;
+    structure?: string;
+  }
 }
