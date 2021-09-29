@@ -3,8 +3,20 @@ import * as React from 'react';
 import { Platform, StyleSheet } from 'react-native';
 
 import { Text, View } from '../components/Themed';
+import { ICartState, IGlobalProps, ScreenProps } from "../types.js";
 
-export default function CartScreen() {
+const mapStateToProps = (state: {cart: ICartState}) => {
+  const {dishes, total} = state.cart
+  return {
+    dishes,
+    total
+  }
+}
+
+type PageStateProps = ReturnType<typeof mapStateToProps>;
+type PageProps = PageStateProps & IGlobalProps & ScreenProps;
+
+const CartScreen: React.FC<PageProps> = ({dishes, total}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Cart Screen</Text>
@@ -24,3 +36,5 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
+
+export default CartScreen;

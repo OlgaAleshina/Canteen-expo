@@ -1,12 +1,13 @@
 import { actionCreatorFactory, DvaModelBuilder } from "dva-model-creator";
 import * as categoryService from '../services/company';
-import { APIprops, ICompState } from "../types";
+import { APIprops, ICompState, CompInfo } from "../types";
 
 
 const initState: ICompState = {
     compInfo: null,
     categories: [],
     dishes: {},
+    activeCategory: null,
   };
 
 const moduleName = "company"
@@ -18,6 +19,7 @@ export const setCategories = actionCreator<ICompState["categories"]>("setCategor
 export const getCategories = actionCreator<APIprops>("getCategories")
 export const setDishes = actionCreator<ICompState["dishes"]>("setDishes")
 export const getDishes = actionCreator<APIprops>("getDishes")
+export const setActiveCategory = actionCreator<ICompState["activeCategory"]>("setActiveCategory")
 
 
 const builder = new DvaModelBuilder<ICompState>(initState, moduleName)
@@ -30,9 +32,12 @@ const builder = new DvaModelBuilder<ICompState>(initState, moduleName)
   .case(setDishes, (state, payload)=> {
     return {...state, dishes: payload}
   })
+  .case(setActiveCategory, (state, payload) => {
+    return {...state, activeCategory: payload}
+  })
   .takeEvery(getCompInfo, function *(payload, {call, put}): Generator {
       try{
-          const res = yield call(categoryService.getInfoCompany, payload);
+          const res: {data: {info: CompInfo}} | any = yield call(categoryService.getInfoCompany, payload);
           const compID = res?.data?.info?.id
           yield put(setCompInfo(res?.data?.info))
           yield put(getCategories(compID))
@@ -42,7 +47,7 @@ const builder = new DvaModelBuilder<ICompState>(initState, moduleName)
   })
  .takeEvery(getCategories, function *(payload, {call, put}): Generator {
     try {
-      const res = yield call(categoryService.getCategories, payload);
+      const res: {data: {categories: []}} | any = yield call(categoryService.getCategories, payload);
       yield put(setCategories(res?.data?.categories))
     } catch (error) {
       alert(error.message)
@@ -50,7 +55,7 @@ const builder = new DvaModelBuilder<ICompState>(initState, moduleName)
  }) 
  .takeEvery(getDishes, function *(payload, {call, put}): Generator {
     try {
-      const res = yield call(categoryService.getDishes, payload)
+      const res: {data: {}} | any = yield call(categoryService.getDishes, payload)
       yield put(setDishes(res.data))
     } catch (error) {
       alert(error.message)
@@ -58,10 +63,5 @@ const builder = new DvaModelBuilder<ICompState>(initState, moduleName)
  }) 
 
   
-  
 
 export default builder.build();
-
-/*export const actions = {
-  setCompId 
-};*/

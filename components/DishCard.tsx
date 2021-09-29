@@ -1,9 +1,9 @@
 import React from "react";
 import {Box, AspectRatio, Image, Stack, Heading, Text, IconButton, Icon, HStack} from "native-base";
 import { AntDesign } from '@expo/vector-icons';
-import { Dish } from "../types";
+import { DishCartProps} from "../types";
 
-const DishCard: React.FC<Dish> = ({dish}) => {
+const DishCard: React.FC<DishCartProps> = ({dish, onAddButton}) => {
 
     return (
         <Box
@@ -41,6 +41,7 @@ const DishCard: React.FC<Dish> = ({dish}) => {
                         _pressed={{
                             bg: "orange.600:alpha.20",
                         }}
+                        onPress={()=>onAddButton(dish)}
                     />
                 </HStack>
             </Stack>

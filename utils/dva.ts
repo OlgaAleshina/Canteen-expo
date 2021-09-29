@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { persistReducer } from 'redux-persist'
 import { createMemoryHistory } from 'history';
 import company from "../models/company";
+import cart from "../models/cart";
 
 const history = createMemoryHistory();
 
@@ -12,7 +13,7 @@ const persistConfig = {
     key: 'root',
    // debug: true,
     storage: AsyncStorage,
-    whitelist: ['company'],
+    whitelist: ['company' , 'cart'],
   }
   
 
@@ -27,7 +28,7 @@ const persistConfig = {
     history
   })
   // HMR workaround
-  const models = [company];
+  const models = [company, cart];
   if (!global.registered) models.forEach(model => app.model(model))
   global.registered = true
 

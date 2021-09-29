@@ -53,7 +53,7 @@ export interface IGlobalProps {
 export type ScreenProps = NativeStackScreenProps<RootStackParamList>
 
 export type AppBarProps = {
-  title: string;
+  title?: string;
   cartCount?: null | number;
 }
 
@@ -64,10 +64,7 @@ export type APIprops = {
   paginationPage?: number;
 }
 export interface ICompState {
-  compInfo: {
-      name: string;
-      id: string;
-    } | null;
+  compInfo: CompInfo | null;
   categories: {
       id: string;
       photo: string;
@@ -78,20 +75,48 @@ export interface ICompState {
       prevPage: number;
       results: object[]
     } | {},
+  activeCategory: ActiveCategory | null,
 }
 
 export type CompInfo = {
   id: string;
   name: string;
 }
-
+export type ActiveCategory = {
+  id: string;
+  name: string;
+}
 export type Dish = {
-  dish: {
     name: string;
     price: number;
     weight: number;
     type_measure: string;
     photo?: string;
     structure?: string;
-  }
+}
+
+export type DishBarProps = {
+  categories: {
+    id: string,
+    name: string
+  }[];
+  onCategoryClick: ({}:ActiveCategory) => void
+}
+export type DishCartProps = {
+  dish: Dish,
+  onAddButton: ({}: Dish) => void
+}
+export type CartItem = {
+  id: string;
+  name: string;
+  price: number;
+  weight: number;
+  type_measure: string;
+  amount: number;
+  totalPrice: number;
+}
+
+export interface ICartState {
+  dishes: CartItem[] | [];
+  total: number
 }

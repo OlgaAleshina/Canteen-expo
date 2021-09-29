@@ -10,15 +10,16 @@ const AppBar: React.FC<Props> = ({navigation, title, cartCount=1}) => {
         <>
             <Box safeAreaTop backgroundColor="#6200ee" />
             <HStack bg='#6200ee' px="1" py="1" justifyContent='space-between' alignItems='center'>
-                <HStack space="4" alignItems='center'>
+                <HStack space={4} alignItems='center'>
                     <IconButton 
                             icon={<Icon size="sm" as={<MaterialIcons name='arrow-back' />} color="white"/>}
                             onPress={()=>navigation.goBack()} />
-                    <Text color="white" fontSize="20" fontWeight='bold'>{title}</Text>
+                    <Text color="white" fontSize={20} fontWeight='bold'>{title}</Text>
                 </HStack>
-                <HStack space="2" style={{position: "relative"}}>
+                <HStack space={2} style={{position: "relative"}}>
                     <IconButton 
                     icon={<Icon as={<MaterialIcons name='shopping-cart' />} size='sm' color="white"/>} 
+                    onPress={()=>navigation.navigate("Cart")}
                     />
                     {cartCount && (
                         <Badge style={{backgroundColor: "inherit", position: "absolute", right: 0}}>

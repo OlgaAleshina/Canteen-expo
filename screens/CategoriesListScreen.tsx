@@ -1,15 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import * as React from 'react';
 import { useEffect } from "react";
-import { Platform, View, StyleSheet, Image, Button, ImageBackground, Pressable } from 'react-native';
-import { HStack, IconButton, Icon, Box, Heading, Text} from "native-base";
+import { View, StyleSheet, Image, Pressable } from 'react-native';
+import { Heading, Text} from "native-base";
 import { connect } from 'react-redux';
-import { MaterialIcons } from '@expo/vector-icons';
 
 import {ScreenProps, ICompState, IGlobalProps } from '../types';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 //import {  View } from '../components/Themed';;
-import { position } from 'styled-system';
 import AppBar from '../components/AppBar';
 
 
@@ -36,7 +33,12 @@ const CategoriesListScreen: React.FC<PageProps> = ({route, navigation, dispatch,
   , [])
 
   const goToCategory= (id: string, name: string) => {
-    navigation.navigate("Category", {id: id, name: name})
+    
+    navigation.navigate("Category")
+    dispatch({
+      type: 'company/setActiveCategory',
+      payload: {id: id, name: name}
+    })
   }
 
   
