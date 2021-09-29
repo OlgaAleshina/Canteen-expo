@@ -43,7 +43,7 @@ const CategoryScreen: React.FC<PageProps> = ({route, navigation, dispatch, ...pr
 
   return (
     <View>
-        <AppBar title="Меню"/>
+        <AppBar navigation={navigation} title="Меню"/>
         <DishBar categories={props.categories} onCategoryClick={(payload)=>changeCategory(payload)} />
         <Text mb="2" mt="2" style={styles.title}>{props.activeCategory?.name}</Text>
 

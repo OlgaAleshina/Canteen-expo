@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import * as React from 'react';
 import { useEffect } from "react";
 import { View, StyleSheet, Image, Pressable } from 'react-native';
@@ -44,7 +43,7 @@ const CategoriesListScreen: React.FC<PageProps> = ({route, navigation, dispatch,
   
   return (
     <View>
-        <AppBar title={compInfo?.name}/>
+        <AppBar navigation={navigation} title={compInfo?.name}/>
         <Heading textAlign="left" mb="2">Меню</Heading>
         <View style={styles.container}>
           

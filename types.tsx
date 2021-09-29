@@ -55,6 +55,7 @@ export type ScreenProps = NativeStackScreenProps<RootStackParamList>
 export type AppBarProps = {
   title?: string;
   cartCount?: null | number;
+  navigation: ScreenProps["navigation"]
 }
 
 export type APIprops = {

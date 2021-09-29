@@ -1,10 +1,10 @@
 import React from "react";
 import { Badge, HStack, IconButton, Icon, Text, Box } from "native-base";
 import { MaterialIcons } from '@expo/vector-icons';
-import { AppBarProps, ScreenProps } from "../types";
+import { AppBarProps } from "../types";
 
-type Props = ScreenProps & AppBarProps
-const AppBar: React.FC<Props> = ({navigation, title, cartCount=1}) => {
+
+const AppBar: React.FC<AppBarProps> = ({navigation, title, cartCount=1}) => {
     
     return (
         <>
