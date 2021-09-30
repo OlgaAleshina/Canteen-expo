@@ -8,8 +8,8 @@ import { Text } from 'native-base';
 //import { View } from '../components/Themed';
 import { ICompState, IGlobalProps, ScreenProps, Dish, CartItem } from '../types';
 import AppBar from '../components/AppBar';
-import DishCard from '../components/DishCard';
-import DishBar from "../components/DishBar";
+import DishCard from '../components/Category/DishCard';
+import DishBar from "../components/Category/DishBar";
 import { setActiveCategory } from '../models/company';
 
 const mapStateToProps = (state: {company: ICompState}) => {

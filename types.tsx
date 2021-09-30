@@ -107,7 +107,7 @@ export type DishCartProps = {
   dish: Dish,
   onAddButton: ({}: Dish) => void
 }
-export type CartItem = {
+export type CartItemType = {
   id: string;
   name: string;
   price: number;
@@ -118,6 +118,6 @@ export type CartItem = {
 }
 
 export interface ICartState {
-  dishes: CartItem[] | [];
+  dishes: CartItemType[] | [];
   total: number
 }

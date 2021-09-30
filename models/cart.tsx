@@ -42,6 +42,8 @@ const builder = new DvaModelBuilder<ICartState>(initState, moduleName)
     const filteredDishes = state.dishes.filter(i=> i.id !== payload)
     return { ...state, dishes: filteredDishes}
 })
-
+.case(clearCart, (state ) => {
+    return initState
+})
 
 export default builder.build()

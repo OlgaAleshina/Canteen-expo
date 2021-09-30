@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {Animated} from "react-native";
 import {Box, Pressable, ScrollView} from "native-base";
 
-import { DishBarProps } from "../types";
+import { DishBarProps } from "../../types";
 
 
 const DishBar: React.FC<DishBarProps> = ({categories, onCategoryClick }) => {

@@ -1,7 +1,7 @@
 import React from "react";
 import {Box, AspectRatio, Image, Stack, Heading, Text, IconButton, Icon, HStack} from "native-base";
 import { AntDesign } from '@expo/vector-icons';
-import { DishCartProps} from "../types";
+import { DishCartProps} from "../../types";
 
 const DishCard: React.FC<DishCartProps> = ({dish, onAddButton}) => {
 
