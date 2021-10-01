@@ -119,5 +119,6 @@ export type CartItemType = {
 
 export interface ICartState {
   dishes: CartItemType[] | [];
-  total: number
+  totalPrice: number,
+  totalNumber: number
 }

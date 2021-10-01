@@ -1,21 +1,25 @@
 import { actionCreatorFactory, DvaModelBuilder} from "dva-model-creator";
-import { ICartState, CartItem } from "../types";
+import { ICartState, CartItemType } from "../types";
 
 const initState: ICartState = {
     dishes: [],
-    total: 0,
+    totalPrice: 0,
+    totalNumber: 0
 }
 
 const moduleName = "cart"
 const actionCreator = actionCreatorFactory(moduleName)
 
-export const addDish = actionCreator<CartItem>("addDish")
+export const addDish = actionCreator<CartItemType>("addDish")
+export const increaseAmount = actionCreator<string>("increaseAmount")
+export const decreaseAmount = actionCreator<string>("decreaseAmount")
 export const removeDish = actionCreator<string>("removeDish")
 export const clearCart = actionCreator("clearCart")
 
 const builder = new DvaModelBuilder<ICartState>(initState, moduleName)
 .case(addDish, (state, payload) => {
-    const existedItem = state.dishes.find(i=> i.id === payload.id)
+    const dishesCopy = [...state.dishes]
+    const existedItem = dishesCopy.find(i=> i.id === payload.id)
     const itemToAdd = {
         id: payload.id,
         name: payload.name,
@@ -23,26 +27,73 @@ const builder = new DvaModelBuilder<ICartState>(initState, moduleName)
         weight: payload.weight,
         type_measure: payload.type_measure,
         amount: 1,
-        totalPrice: 0,
+        totalPrice: payload.price,
     }
-    console.log("cart", state)
-    if(existedItem) {
+    
+    
+    if(!existedItem) {
         return {
-            ...state,
-            total: state.total + +payload.price,
+            dishes: [...state.dishes, itemToAdd],
+            totalPrice: state.totalPrice + +payload.price,
+            totalNumber: state.totalNumber + 1, 
         }
     } else {
+        existedItem.amount += 1
         return {
-            total: state.total + +payload.price, 
-            dishes: [...state.dishes, itemToAdd]
+            dishes: dishesCopy,
+            totalPrice: state.totalPrice + +payload.price,
+            totalNumber: state.totalNumber + 1,
             }
     }
 })
-.case(removeDish, (state, payload) => {
-    const filteredDishes = state.dishes.filter(i=> i.id !== payload)
-    return { ...state, dishes: filteredDishes}
+.case(increaseAmount, (state, payload) => {
+    const dishesCopy = [...state.dishes]
+    const activeDish = dishesCopy.find(item=> item.id === payload)
+    activeDish.amount += 1
+    activeDish.totalPrice = activeDish.amount * activeDish.price
+
+    return {
+        dishes: dishesCopy,
+        totalNumber: state.totalNumber + 1, 
+        totalPrice: state.totalPrice + +activeDish.price
+    }
 })
-.case(clearCart, (state ) => {
+.case(decreaseAmount, (state, payload) => {
+    const dishesCopy = [...state.dishes]
+    const activeDish = dishesCopy.find(item=> item.id === payload)
+    const lastItem = activeDish.amount == 1
+
+    return {
+        dishes: lastItem ? state.dishes.filter(item => item.id !==payload) : dishesCopy,
+        totalNumber: state.totalNumber - 1,
+        totalPrice: state.totalPrice - +activeDish.price 
+    }
+    /*if(activeDish.amount == 1) {
+
+        return {
+            dishes: state.dishes.filter(item => item.id !==payload), 
+            totalNumber: state.totalNumber - 1,
+            total: state.total - +activeDish.price 
+        }
+    } 
+
+    return {
+        dishes: dishesCopy,
+        totalNumber: state.totalNumber - 1,
+        total: state.total - +activeDish.price
+    }*/
+})
+.case(removeDish, (state, payload) => {
+    const filteredDishes = state.dishes.filter(i=> i.id !== payload);
+    const updatedPrice = 1;
+    const updatedNumber = 1;
+    return { 
+         dishes: filteredDishes,
+         totalPrice: updatedPrice,
+         totalNumber: updatedNumber
+    }
+})
+.case(clearCart, () => {
     return initState
 })
 

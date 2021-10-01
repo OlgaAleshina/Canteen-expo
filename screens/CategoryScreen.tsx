@@ -6,15 +6,16 @@ import { connect } from 'react-redux';
 import { Text } from 'native-base';
 
 //import { View } from '../components/Themed';
-import { ICompState, IGlobalProps, ScreenProps, Dish, CartItem } from '../types';
+import { ICompState, IGlobalProps, ScreenProps, Dish, CartItem, ICartState } from '../types';
 import AppBar from '../components/AppBar';
 import DishCard from '../components/Category/DishCard';
 import DishBar from "../components/Category/DishBar";
 import { setActiveCategory } from '../models/company';
 
-const mapStateToProps = (state: {company: ICompState}) => {
-  const {dishes, compInfo, categories, activeCategory} = state.company
-  return {dishes, compInfo, categories, activeCategory}
+const mapStateToProps = (state: {company: ICompState, cart: ICartState}) => {
+  const {dishes, compInfo, categories, activeCategory} = state.company;
+  const {totalNumber} = state.cart;
+  return {dishes, compInfo, categories, activeCategory, totalNumber}
 }
 
 type PageStateProps = ReturnType<typeof mapStateToProps>;
@@ -43,7 +44,7 @@ const CategoryScreen: React.FC<PageProps> = ({route, navigation, dispatch, ...pr
 
   return (
     <View>
-        <AppBar navigation={navigation} title="Меню"/>
+        <AppBar navigation={navigation} title="Меню" cartCount={props.totalNumber}/>
         <DishBar categories={props.categories} onCategoryClick={(payload)=>changeCategory(payload)} />
         <Text mb="2" mt="2" style={styles.title}>{props.activeCategory?.name}</Text>
 

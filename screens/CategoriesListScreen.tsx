@@ -4,24 +4,26 @@ import { View, StyleSheet, Image, Pressable } from 'react-native';
 import { Heading, Text} from "native-base";
 import { connect } from 'react-redux';
 
-import {ScreenProps, ICompState, IGlobalProps } from '../types';
+import {ScreenProps, ICompState, IGlobalProps, ICartState } from '../types';
 //import {  View } from '../components/Themed';;
 import AppBar from '../components/AppBar';
 
 
-const mapStateToProps = (state: {company: ICompState}) => {
-  const {categories, compInfo} = state.company
+const mapStateToProps = (state: {company: ICompState, cart: ICartState}) => {
+  const {categories, compInfo} = state.company;
+  const {totalNumber} = state.cart
   return {
     //loading: state.loading.models.users,
     categories,
-    compInfo
+    compInfo, 
+    totalNumber
   };
 }
 
 type PageStateProps = ReturnType<typeof mapStateToProps>;
 type PageProps = PageStateProps & IGlobalProps & ScreenProps;
 
-const CategoriesListScreen: React.FC<PageProps> = ({route, navigation, dispatch, categories, compInfo}) => {
+const CategoriesListScreen: React.FC<PageProps> = ({route, navigation, dispatch, categories, compInfo, totalNumber}) => {
 
   useEffect(()=>{
     dispatch({
@@ -43,7 +45,7 @@ const CategoriesListScreen: React.FC<PageProps> = ({route, navigation, dispatch,
   
   return (
     <View>
-        <AppBar navigation={navigation} title={compInfo?.name}/>
+        <AppBar navigation={navigation} title={compInfo?.name} cartCount={totalNumber}/>
         <Heading textAlign="left" mb="2">Меню</Heading>
         <View style={styles.container}>
           

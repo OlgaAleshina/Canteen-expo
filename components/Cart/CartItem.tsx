@@ -8,11 +8,14 @@ import { CartItemType } from '../../types';
 
 
 type CartItemProps = {
-    dish: CartItemType
+    dish: CartItemType;
+    onCrossButton: ()=>void;
+    onAddItem: ()=>void; 
+    onDeleteItem: ()=>void;
 }
 
 
-const CartItem: React.FC<CartItemProps> = ({dish}) => {
+const CartItem: React.FC<CartItemProps> = ({dish, onCrossButton, onAddItem, onDeleteItem}) => {
 
     
     return (
@@ -26,15 +29,15 @@ const CartItem: React.FC<CartItemProps> = ({dish}) => {
                 </HStack>
             </VStack>
             <VStack>
-                <IconButton icon={<Icon as={FontAwesome5} name="times-circle" />}/>
+                <IconButton onPress={onCrossButton} icon={<Icon as={FontAwesome5} name="times-circle" />}/>
             </VStack>
         </HStack>
         
         <HStack pl={2} pr={2} alignItems="center" justifyContent="space-between">               
                 <HStack alignItems="center">
-                    <IconButton icon={<Icon as={AntDesign} name="minuscircleo" color="black"/>} borderRadius="full"/>
+                    <IconButton onPress={onDeleteItem} icon={<Icon as={AntDesign} name="minuscircleo" color="black"/>} borderRadius="full"/>
                     <Text>{dish.amount}</Text>
-                    <IconButton icon={<Icon as={AntDesign} name="pluscircleo" color="black" />} borderRadius="full"/>
+                    <IconButton onPress={onAddItem} icon={<Icon as={AntDesign} name="pluscircleo" color="black" />} borderRadius="full"/>
                 </HStack>
                 <Text>{dish.totalPrice} руб</Text>
         </HStack> 

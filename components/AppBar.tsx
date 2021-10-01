@@ -4,7 +4,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { AppBarProps } from "../types";
 
 
-const AppBar: React.FC<AppBarProps> = ({navigation, title, cartCount=1}) => {
+const AppBar: React.FC<AppBarProps> = ({navigation, title, cartCount}) => {
     
     return (
         <>
@@ -21,7 +21,7 @@ const AppBar: React.FC<AppBarProps> = ({navigation, title, cartCount=1}) => {
                     icon={<Icon as={<MaterialIcons name='shopping-cart' />} size='sm' color="white"/>} 
                     onPress={()=>navigation.navigate("Cart")}
                     />
-                    {cartCount && (
+                    {Boolean(cartCount) && (
                         <Badge style={{backgroundColor: "inherit", position: "absolute", right: 0}}>
                             <Text style={{color: "white", fontWeight: "bold"}}>{cartCount}</Text>
                         </Badge>
