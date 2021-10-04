@@ -39,6 +39,7 @@ const builder = new DvaModelBuilder<ICartState>(initState, moduleName)
         }
     } else {
         existedItem.amount += 1
+        existedItem.totalPrice = existedItem.amount * existedItem.price
         return {
             dishes: dishesCopy,
             totalPrice: state.totalPrice + +payload.price,
@@ -51,7 +52,7 @@ const builder = new DvaModelBuilder<ICartState>(initState, moduleName)
     const activeDish = dishesCopy.find(item=> item.id === payload)
     activeDish.amount += 1
     activeDish.totalPrice = activeDish.amount * activeDish.price
-
+    
     return {
         dishes: dishesCopy,
         totalNumber: state.totalNumber + 1, 
@@ -62,36 +63,45 @@ const builder = new DvaModelBuilder<ICartState>(initState, moduleName)
     const dishesCopy = [...state.dishes]
     const activeDish = dishesCopy.find(item=> item.id === payload)
     const lastItem = activeDish.amount == 1
-
-    return {
+    
+    /*return {
         dishes: lastItem ? state.dishes.filter(item => item.id !==payload) : dishesCopy,
         totalNumber: state.totalNumber - 1,
         totalPrice: state.totalPrice - +activeDish.price 
-    }
-    /*if(activeDish.amount == 1) {
-
+    }*/
+    if(lastItem) {
         return {
             dishes: state.dishes.filter(item => item.id !==payload), 
             totalNumber: state.totalNumber - 1,
-            total: state.total - +activeDish.price 
+            totalPrice: state.totalPrice - +activeDish.price 
         }
-    } 
-
-    return {
-        dishes: dishesCopy,
-        totalNumber: state.totalNumber - 1,
-        total: state.total - +activeDish.price
-    }*/
+    } else {
+        activeDish.amount -= 1
+        activeDish.totalPrice = activeDish.amount * activeDish.price
+        return {
+            dishes: dishesCopy,
+            totalNumber: state.totalNumber - 1,
+            totalPrice: state.totalPrice - +activeDish.price
+         }
+    }
 })
 .case(removeDish, (state, payload) => {
     const filteredDishes = state.dishes.filter(i=> i.id !== payload);
-    const updatedPrice = 1;
-    const updatedNumber = 1;
-    return { 
-         dishes: filteredDishes,
-         totalPrice: updatedPrice,
-         totalNumber: updatedNumber
-    }
+    
+
+    if(filteredDishes.length == 0){
+        return { 
+            dishes: filteredDishes,
+            totalPrice: 0,
+            totalNumber: 0
+    }} else {
+        const activeDish = state.dishes.find(item=> item.id === payload)
+        return {
+            dishes: filteredDishes,
+            totalPrice: state.totalPrice - activeDish.totalPrice,
+            totalNumber: state.totalNumber - activeDish.amount
+        }
+    } 
 })
 .case(clearCart, () => {
     return initState

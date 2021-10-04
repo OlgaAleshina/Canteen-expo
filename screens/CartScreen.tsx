@@ -13,10 +13,10 @@ import CartItem from '../components/Cart/CartItem';
 import { CartItemType } from "../types";
 
 const mapStateToProps = (state: {cart: ICartState}) => {
-  const {dishes, total, totalNumber} = state.cart
+  const {dishes, totalPrice, totalNumber} = state.cart
   return {
     dishes,
-    total,
+    totalPrice,
     totalNumber
   }
 }
@@ -24,7 +24,7 @@ const mapStateToProps = (state: {cart: ICartState}) => {
 type PageStateProps = ReturnType<typeof mapStateToProps>;
 type PageProps = PageStateProps & IGlobalProps & ScreenProps;
 
-const CartScreen: React.FC<PageProps> = ({navigation, dispatch, dishes, total, totalNumber}) => {
+const CartScreen: React.FC<PageProps> = ({navigation, dispatch, dishes, totalPrice, totalNumber}) => {
 
   const handleClearCart = () => {
     dispatch(clearCart())
@@ -64,7 +64,7 @@ const CartScreen: React.FC<PageProps> = ({navigation, dispatch, dishes, total, t
         </VStack>
 
         <VStack mt={2} p={2} alignItems="center" justifyContent="center">
-            <Text>Сумма заказа: {total} РУБ</Text>
+            <Text>Сумма заказа: {totalPrice} РУБ</Text>
             <Text>Оформить и оплатить данный заказ вы сможете на баре</Text>
         </VStack>
     </VStack>

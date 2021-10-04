@@ -6,7 +6,7 @@ import { ScreenProps } from "../../types";
 
 type EmptyCartProps = {
     navigation: ScreenProps["navigation"],
-    totalNumber: number
+    totalNumber?: number
 }
 const EmptyCart: React.FC<EmptyCartProps> = ({navigation, totalNumber}) => {
     
