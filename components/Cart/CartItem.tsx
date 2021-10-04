@@ -1,5 +1,5 @@
 import React from "react";
-import {VStack, HStack, Text, Button, IconButton, Icon} from "native-base";
+import {VStack, HStack, Text,IconButton, Icon, Box} from "native-base";
 import { FontAwesome5 } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { View } from "react-native";
@@ -19,7 +19,7 @@ const CartItem: React.FC<CartItemProps> = ({dish, onCrossButton, onAddItem, onDe
 
     
     return (
-    <>
+    <Box key={dish.id}>
         <HStack pl={2} pr={2} alignItems="center" justifyContent="space-between">
             <VStack >
                 <Text>{dish.name}</Text>
@@ -47,7 +47,7 @@ const CartItem: React.FC<CartItemProps> = ({dish, onCrossButton, onAddItem, onDe
                 borderBottomWidth: 1,
             }}
 />
-    </>
+    </Box>
     )
 }
 

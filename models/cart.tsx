@@ -50,6 +50,10 @@ const builder = new DvaModelBuilder<ICartState>(initState, moduleName)
 .case(increaseAmount, (state, payload) => {
     const dishesCopy = [...state.dishes]
     const activeDish = dishesCopy.find(item=> item.id === payload)
+    if(!activeDish){
+        return state;
+    }
+
     activeDish.amount += 1
     activeDish.totalPrice = activeDish.amount * activeDish.price
     
@@ -62,14 +66,13 @@ const builder = new DvaModelBuilder<ICartState>(initState, moduleName)
 .case(decreaseAmount, (state, payload) => {
     const dishesCopy = [...state.dishes]
     const activeDish = dishesCopy.find(item=> item.id === payload)
-    const lastItem = activeDish.amount == 1
+
+    if(!activeDish){
+        return state
+    }
     
-    /*return {
-        dishes: lastItem ? state.dishes.filter(item => item.id !==payload) : dishesCopy,
-        totalNumber: state.totalNumber - 1,
-        totalPrice: state.totalPrice - +activeDish.price 
-    }*/
-    if(lastItem) {
+    
+    if(activeDish.amount == 1) {
         return {
             dishes: state.dishes.filter(item => item.id !==payload), 
             totalNumber: state.totalNumber - 1,
@@ -96,6 +99,9 @@ const builder = new DvaModelBuilder<ICartState>(initState, moduleName)
             totalNumber: 0
     }} else {
         const activeDish = state.dishes.find(item=> item.id === payload)
+        if(!activeDish){
+            return state
+        }
         return {
             dishes: filteredDishes,
             totalPrice: state.totalPrice - activeDish.totalPrice,

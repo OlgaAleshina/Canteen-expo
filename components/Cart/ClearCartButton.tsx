@@ -16,7 +16,7 @@ const ClearCartButton: React.FC<ButtonProps> = ({onClearCart}) => {
             endIcon={<Icon as={FontAwesome5} name="trash" size="sm" />}
             onPress={onClearCart}
             size="xs"
-            colorScheme="grey"
+            //colorScheme="grey"
         >
             Очистить корзину
         </Button>

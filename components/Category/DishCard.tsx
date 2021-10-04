@@ -11,6 +11,7 @@ const DishCard: React.FC<DishCartProps> = ({dish, onAddButton}) => {
             pb="2"
             width="100%"
             shadow={1}
+            key={dish.name}
             _light={{ backgroundColor: 'gray.50' }}
             _dark={{ backgroundColor: 'gray.700' }}
         >
@@ -38,9 +39,6 @@ const DishCard: React.FC<DishCartProps> = ({dish, onAddButton}) => {
                     <IconButton
                         icon={<Icon as={AntDesign} name="pluscircleo" color="grey" />}
                         borderRadius="full"
-                        _pressed={{
-                            bg: "orange.600:alpha.20",
-                        }}
                         onPress={()=>onAddButton(dish)}
                     />
                 </HStack>

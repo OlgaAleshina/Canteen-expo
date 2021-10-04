@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useEffect } from "react";
 import { View, StyleSheet, Image, Pressable } from 'react-native';
-import { Heading, Text} from "native-base";
+import { Heading, ScrollView, Text} from "native-base";
 import { connect } from 'react-redux';
 
 import {ScreenProps, ICompState, IGlobalProps, ICartState } from '../types';
@@ -47,27 +47,29 @@ const CategoriesListScreen: React.FC<PageProps> = ({route, navigation, dispatch,
     <View>
         <AppBar navigation={navigation} title={compInfo?.name} cartCount={totalNumber}/>
         <Heading textAlign="left" mb="2">Меню</Heading>
-        <View style={styles.container}>
-          
-            {categories.map(item=>(
-                  <Pressable
-                    style={styles.category}
-                    onPress={()=>goToCategory(item.id, item.name)}
-                    key={item.id}
-                  >
-                        <Image
-                              source={{uri: `${item.photo}`,}}
-                              style={styles.categoryImage} 
-                            />
-                        <View style={styles.categoryTitle}>
-                            <Text style={styles.categoryTitleText}>{item.name}</Text>
-                        </View>       
-                  </Pressable>
+        <ScrollView mb={10}>
+            <View style={styles.container}>
               
-              
-              ))}
+                {categories.map(item=>(
+                      <Pressable
+                        style={styles.category}
+                        onPress={()=>goToCategory(item.id, item.name)}
+                        key={item.id}
+                      >
+                            <Image
+                                  source={{uri: `${item.photo}`,}}
+                                  style={styles.categoryImage} 
+                                />
+                            <View style={styles.categoryTitle}>
+                                <Text style={styles.categoryTitleText}>{item.name}</Text>
+                            </View>       
+                      </Pressable>
+                  
+                  
+                  ))}
 
-          </View>
+              </View>
+          </ScrollView>
       </View>
   );
 }

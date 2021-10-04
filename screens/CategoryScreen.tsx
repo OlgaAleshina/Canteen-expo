@@ -3,7 +3,7 @@ import * as React from 'react';
 import {useEffect} from "react";
 import { Platform, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
-import { Text } from 'native-base';
+import { ScrollView, Text } from 'native-base';
 
 //import { View } from '../components/Themed';
 import { ICompState, IGlobalProps, ScreenProps, Dish, CartItem, ICartState } from '../types';
@@ -47,10 +47,11 @@ const CategoryScreen: React.FC<PageProps> = ({route, navigation, dispatch, ...pr
         <AppBar navigation={navigation} title="Меню" cartCount={props.totalNumber}/>
         <DishBar categories={props.categories} onCategoryClick={(payload)=>changeCategory(payload)} />
         <Text mb="2" mt="2" style={styles.title}>{props.activeCategory?.name}</Text>
-
-        {props.dishes?.results?.map((item: Dish)  => <DishCard dish={item} onAddButton={(item)=>addToCart(item)}/>)}
-        {/* Use a light status bar on iOS to account for the black space above the modal */}
-        <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
+        <ScrollView>
+            {props.dishes?.results?.map((item: Dish)  => <DishCard dish={item} onAddButton={(item)=>addToCart(item)}/>)}
+            {/* Use a light status bar on iOS to account for the black space above the modal */}
+            <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
+        </ScrollView>
     </View>
   );
 }

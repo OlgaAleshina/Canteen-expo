@@ -34,13 +34,14 @@ function TabTwoScreen({navigation}: RootTabScreenProps<'TabTwo'>) {
           <Box 
           width="100%"
             borderBottomWidth="1"
-            _dark={{
-              borderColor: "gray.600",
-            }}
-            borderColor="coolGray.200"
+            //_dark={{
+            //  borderColor: "gray.600",
+            //}}
+            //borderColor="coolGray.200"
             pl="4"
             pr="5"
-            py="2">
+            py="2"
+            key={item.key}>
                 <Pressable pt="10" pb="10" onPress={()=>goToRestaurant(item.podDomen)}>
                     <Text>{item.key}</Text>
                 </Pressable>
