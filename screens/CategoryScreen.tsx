@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { ScrollView, Text } from 'native-base';
 
 //import { View } from '../components/Themed';
-import { ICompState, IGlobalProps, ScreenProps, Dish, CartItem, ICartState } from '../types';
+import { ICompState, IGlobalProps, ScreenProps, Dish, ICartState } from '../types';
 import AppBar from '../components/AppBar';
 import DishCard from '../components/Category/DishCard';
 import DishBar from "../components/Category/DishBar";
@@ -35,7 +35,7 @@ const CategoryScreen: React.FC<PageProps> = ({route, navigation, dispatch, ...pr
     dispatch(setActiveCategory(payload))
   }
 
-  const addToCart = (payload: CartItem) => {
+  const addToCart = (payload: Dish) => {
     dispatch({
       type: 'cart/addDish',
       payload: payload
@@ -43,16 +43,16 @@ const CategoryScreen: React.FC<PageProps> = ({route, navigation, dispatch, ...pr
   }
 
   return (
-    <View>
+    <>
         <AppBar navigation={navigation} title="Меню" cartCount={props.totalNumber}/>
         <DishBar categories={props.categories} onCategoryClick={(payload)=>changeCategory(payload)} />
         <Text mb="2" mt="2" style={styles.title}>{props.activeCategory?.name}</Text>
-        <ScrollView>
+        <ScrollView mb="10">
             {props.dishes?.results?.map((item: Dish)  => <DishCard dish={item} onAddButton={(item)=>addToCart(item)}/>)}
             {/* Use a light status bar on iOS to account for the black space above the modal */}
             <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
-        </ScrollView>
-    </View>
+        </ScrollView >
+    </>
   );
 }
 

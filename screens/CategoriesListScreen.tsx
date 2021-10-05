@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useEffect } from "react";
-import { View, StyleSheet, Image, Pressable } from 'react-native';
-import { Heading, ScrollView, Text} from "native-base";
+import { StyleSheet, Image, Pressable } from 'react-native';
+import { Heading, ScrollView, Text, View} from "native-base";
 import { connect } from 'react-redux';
 
 import {ScreenProps, ICompState, IGlobalProps, ICartState } from '../types';
@@ -44,7 +44,7 @@ const CategoriesListScreen: React.FC<PageProps> = ({route, navigation, dispatch,
 
   
   return (
-    <View>
+    <>
         <AppBar navigation={navigation} title={compInfo?.name} cartCount={totalNumber}/>
         <Heading textAlign="left" mb="2">Меню</Heading>
         <ScrollView mb={10}>
@@ -70,7 +70,7 @@ const CategoriesListScreen: React.FC<PageProps> = ({route, navigation, dispatch,
 
               </View>
           </ScrollView>
-      </View>
+      </>
   );
 }
 
