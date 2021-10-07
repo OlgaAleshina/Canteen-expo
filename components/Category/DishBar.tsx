@@ -12,20 +12,22 @@ const DishBar: React.FC<DishBarProps> = ({categories, onCategoryClick }) => {
     return (
         <ScrollView horizontal={true}>
                 {categories.map((item, i) => {
-                    const borderColor = index === i ? '#FF0000' : '#000000';
+                    const borderColor = index === i ? '#FF0000' : '#fff';
                     return (
                         <Box
                             borderBottomWidth="3"
+                            bg="primary.menu_scroll"
                             borderColor={borderColor}
                             p="3"
                             key={item.id}
                             >
                                 <Pressable
+                                color="primary.text_menu_scroll"
                                     onPress={() => {
                                         setIndex(i);
                                         onCategoryClick({id: item.id, name: item.name})
                                     }}>
-                                        <Animated.Text>{item.name}</Animated.Text>
+                                        {item.name}
                                 </Pressable>
                         </Box>
                     )})

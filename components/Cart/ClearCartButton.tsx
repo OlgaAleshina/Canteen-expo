@@ -13,10 +13,11 @@ const ClearCartButton: React.FC<ButtonProps> = ({onClearCart}) => {
     return (
         <Button
             variant="outline"
-            endIcon={<Icon as={FontAwesome5} name="trash" size="sm" />}
+            endIcon={<Icon as={FontAwesome5} name="trash" size="sm" color="#000"/>}
             onPress={onClearCart}
             size="xs"
-            //colorScheme="grey"
+            //color="#000"
+            colorScheme="black"
         >
             Очистить корзину
         </Button>

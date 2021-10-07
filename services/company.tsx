@@ -25,7 +25,6 @@ export const getBanner =  ({compID}: APIprops) => {
 };
 
 export const getCategories = ( compID: APIprops) => {
-  console.log("id", compID)
   const res = instance.get(`${compID}/category`);
   return res;
 };

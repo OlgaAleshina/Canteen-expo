@@ -31,43 +31,20 @@ function TabTwoScreen({navigation}: RootTabScreenProps<'TabTwo'>) {
           {key: 'Хабит', podDomen: 'habit'},
         ]}
         renderItem={({item}) => (
-          <Box 
-          width="100%"
-            borderBottomWidth="1"
-            //_dark={{
-            //  borderColor: "gray.600",
-            //}}
-            //borderColor="coolGray.200"
-            pl="4"
-            pr="5"
-            py="2"
-            key={item.key}>
-                <Pressable pt="10" pb="10" onPress={()=>goToRestaurant(item.podDomen)}>
-                    <Text>{item.key}</Text>
-                </Pressable>
-          </Box>)}
+            <Box 
+              width="100%"
+              borderBottomWidth="1"
+              pl="4"
+              pr="5"
+              py="2"
+              key={item.key}>
+                  <Pressable pt="10" pb="10" onPress={()=>goToRestaurant(item.podDomen)}>
+                      <Text>{item.key}</Text>
+                  </Pressable>
+            </Box>)}
       />
     </View>
   );
 }
 
-export default connect(
-  mapStateToProps
-)(TabTwoScreen)
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-});
+export default connect(mapStateToProps)(TabTwoScreen)

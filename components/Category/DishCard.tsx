@@ -12,8 +12,8 @@ const DishCard: React.FC<DishCartProps> = ({dish, onAddButton}) => {
             width="100%"
             shadow={1}
             key={dish.name}
-            _light={{ backgroundColor: 'gray.50' }}
-            _dark={{ backgroundColor: 'gray.700' }}
+            _light={{ backgroundColor: 'primary.background_card_dish' }}
+            _dark={{ backgroundColor: 'primary.background_card_dish' }}
         >
             {dish.photo && (
                 <Box>
@@ -34,10 +34,14 @@ const DishCard: React.FC<DishCartProps> = ({dish, onAddButton}) => {
                 <HStack alignItems="center" space={4} justifyContent="space-between">
                     <Stack width="70%">
                         <Text fontWeight="400" fontSize="xs">{dish.structure}</Text>
-                        <Text fontWeight="400">{dish.price} / {dish.weight} {dish.type_measure}</Text>
+                        <Text fontWeight="400">
+                            <Text color="primary.price_card_dish">{dish.price} Р</Text>
+                             / {dish.weight} {dish.type_measure}
+                        </Text>
                     </Stack>
                     <IconButton
-                        icon={<Icon as={AntDesign} name="pluscircleo" color="grey" />}
+                        bg="red"
+                        icon={<Icon as={AntDesign} name="pluscircleo" color="primary.button_send_to_bucket" />}
                         borderRadius="full"
                         onPress={()=>onAddButton(dish)}
                     />

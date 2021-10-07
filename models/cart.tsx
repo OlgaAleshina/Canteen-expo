@@ -16,6 +16,7 @@ export const decreaseAmount = actionCreator<string>("decreaseAmount")
 export const removeDish = actionCreator<string>("removeDish")
 export const clearCart = actionCreator("clearCart")
 
+
 const builder = new DvaModelBuilder<ICartState>(initState, moduleName)
 .case(addDish, (state, payload) => {
     const dishesCopy = [...state.dishes]

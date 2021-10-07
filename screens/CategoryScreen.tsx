@@ -45,9 +45,11 @@ const CategoryScreen: React.FC<PageProps> = ({route, navigation, dispatch, ...pr
   return (
     <>
         <AppBar navigation={navigation} title="Меню" cartCount={props.totalNumber}/>
+        <ScrollView bg="primary.background" mb="10">
         <DishBar categories={props.categories} onCategoryClick={(payload)=>changeCategory(payload)} />
-        <Text mb="2" mt="2" style={styles.title}>{props.activeCategory?.name}</Text>
-        <ScrollView mb="10">
+        
+            <Text color="primary.header_page" mb="2" mt="2" style={styles.title}>{props.activeCategory?.name}</Text>
+        
             {props.dishes?.results?.map((item: Dish)  => <DishCard dish={item} onAddButton={(item)=>addToCart(item)}/>)}
             {/* Use a light status bar on iOS to account for the black space above the modal */}
             <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />

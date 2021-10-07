@@ -46,29 +46,31 @@ const CategoriesListScreen: React.FC<PageProps> = ({route, navigation, dispatch,
   return (
     <>
         <AppBar navigation={navigation} title={compInfo?.name} cartCount={totalNumber}/>
-        <Heading textAlign="left" mb="2">Меню</Heading>
-        <ScrollView mb={10}>
-            <View style={styles.container}>
-              
-                {categories.map(item=>(
-                      <Pressable
-                        style={styles.category}
-                        onPress={()=>goToCategory(item.id, item.name)}
-                        key={item.id}
-                      >
-                            <Image
-                                  source={{uri: `${item.photo}`,}}
-                                  style={styles.categoryImage} 
-                                />
-                            <View style={styles.categoryTitle}>
-                                <Text style={styles.categoryTitleText}>{item.name}</Text>
-                            </View>       
-                      </Pressable>
-                  
-                  
-                  ))}
+        <ScrollView bg="primary.background">
+          <Heading color="primary.header_page" textAlign="left" mb="2">Меню</Heading>
+          <ScrollView mb={10}>
+              <View style={styles.container}>
+                
+                  {categories.map(item=>(
+                        <Pressable
+                          style={styles.category}
+                          onPress={()=>goToCategory(item.id, item.name)}
+                          key={item.id}
+                        >
+                              <Image
+                                    source={{uri: `${item.photo}`,}}
+                                    style={styles.categoryImage} 
+                                  />
+                              <View style={styles.categoryTitle}>
+                                  <Text style={styles.categoryTitleText}>{item.name}</Text>
+                              </View>       
+                        </Pressable>
+                    
+                    
+                    ))}
 
-              </View>
+                </View>
+            </ScrollView>
           </ScrollView>
       </>
   );
@@ -100,6 +102,5 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(mapStateToProps
-)(CategoriesListScreen);
+export default connect(mapStateToProps)(CategoriesListScreen);
 

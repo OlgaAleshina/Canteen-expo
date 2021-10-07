@@ -8,13 +8,13 @@ const AppBar: React.FC<AppBarProps> = ({navigation, title, cartCount}) => {
     
     return (
         <>
-            <Box safeAreaTop backgroundColor="#6200ee" />
-            <HStack bg='#6200ee' px="1" py="1" justifyContent='space-between' alignItems='center'>
+            <Box safeAreaTop backgroundColor="primary.header" />
+            <HStack backgroundColor="primary.header"  px="1" py="1" justifyContent='space-between' alignItems='center'>
                 <HStack space={4} alignItems='center'>
                     <IconButton 
                             icon={<Icon size="sm" as={<MaterialIcons name='arrow-back' />} color="white"/>}
                             onPress={()=>navigation.goBack()} />
-                    <Text color="white" fontSize={20} fontWeight='bold'>{title}</Text>
+                    <Text color="primary.title_header" fontSize={20} fontWeight='bold'>{title}</Text>
                 </HStack>
                 <HStack space={2} style={{position: "relative"}}>
                     <IconButton 

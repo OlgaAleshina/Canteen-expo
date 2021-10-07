@@ -1,13 +1,11 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { Provider  } from 'react-redux';
 import dva from "./utils/dva";
-import { NativeBaseProvider, extendTheme } from 'native-base';
 import useCachedResources from './hooks/useCachedResources';
 import { persistStore, REHYDRATE } from 'redux-persist';
 import { PersistGate } from 'redux-persist/lib/integration/react'
 import useColorScheme from './hooks/useColorScheme';
-import Navigation from './navigation';
+import ThemedApp from "./ThemedApp";
 
 
 const app = dva; // Create a dva instance to pass configuration parameters. Https://dvajs.com/api/#app-dva-opts
@@ -28,7 +26,7 @@ const createPersistor = (store) => {
 export default function App() {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
-  
+
   
 
   if (!isLoadingComplete) {
@@ -36,12 +34,9 @@ export default function App() {
   } else {
     return (
       <Provider store={store}>
-          <NativeBaseProvider>
               <PersistGate persistor={createPersistor(store)} loading={null}>
-                  <Navigation colorScheme={colorScheme} />
-                  <StatusBar />
+                 <ThemedApp />
               </PersistGate>
-          </NativeBaseProvider>
       </Provider>
     );
   }
